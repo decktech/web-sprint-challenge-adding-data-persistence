@@ -12,6 +12,13 @@ async function getProjects() {
    return result;
 }
 
+async function createProject(project) {
+    await db('projects').insert(project);
+    const result = await getProjects()
+    return result[result.length -1]
+}
+
 module.exports = {
-    getProjects
+    getProjects,
+    createProject
 }
