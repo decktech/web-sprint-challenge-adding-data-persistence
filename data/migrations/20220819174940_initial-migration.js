@@ -6,7 +6,7 @@ exports.up = function (knex) {
                 .notNullable()
             tbl.varchar('project_description')
             tbl.boolean('project_completed')
-                .defaultTo('false')
+                .defaultTo(0)
         })
         .createTable('resources', tbl => {
             tbl.increments('resource_id')
@@ -21,12 +21,12 @@ exports.up = function (knex) {
                 .notNullable()
             tbl.varchar('task_notes')
             tbl.boolean('task_completed')
-                .defaultTo('false')
+                .defaultTo(0)
             tbl.integer('project_id')
                 .notNullable()
                 .unsigned()
-                .references('recipe_id')
-                .inTable('recipes')
+                .references('project_id')
+                .inTable('projects')
                 .onDelete('RESTRICT')
 
         })
@@ -34,8 +34,7 @@ exports.up = function (knex) {
 
 exports.down = function (knex) {
     return knex.schema
-        .dropTableIfExists('')
-        .dropTableIfExists('')
-        .dropTableIfExists('')
-        .dropTableIfExists('');
+        .dropTableIfExists('tasks')
+        .dropTableIfExists('resources')
+        .dropTableIfExists('projects')
 };
