@@ -5,6 +5,9 @@ function getResources() {
 }
 
 async function createResource(resource) {
+    await db('resources').insert(resource)
+    const result = await getResources()
+    return result[result.length-1]
 }
 
 module.exports = {
